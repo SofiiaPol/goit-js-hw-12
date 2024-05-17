@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const BASE_URL = 'https://pixabay.com';
 const PATH = '/api/';
 const PARAMS = {
@@ -13,13 +15,19 @@ const getSearchParams = searchInputValue => {
   return parameters;
 };
 
-export const fetchImages = searchInputValue => {
+export const fetchImages = async searchInputValue => {
   const url = `${BASE_URL}${PATH}?${getSearchParams(searchInputValue)}`;
-  return fetch(url).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-
-    return response.json();
-  });
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response ? error.response.status : error.message);
+  }
 };
+// return fetch(url).then(response => {
+//   if (!response.ok) {
+//     throw new Error(response.status);
+//   }
+
+//   return response.json();
+// });

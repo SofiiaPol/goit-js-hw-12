@@ -15,11 +15,140 @@
   font-weight: 400;
 
   color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
+  background-color: #b3d3b4;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: #b3d3b4;
+  margin: 0;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1158px;
+}
+
+.gallery-item {
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
+  max-width: calc((100% - 48px) / 3);
+  border: 1px #000000 solid;
+  padding-bottom: 10px;
+  background-color: #ffffff;
+}
+
+.gallery-link {
+  width: 100%;
+}
+
+.gallery-image {
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.search-input {
+  width: 272px;
+  height: 37px;
+  padding-left: 16px;
+  border: 1px #808080 solid;
+  border-radius: 4px;
+}
+
+.search-input:hover {
+  border: 1px #000000 solid;
+}
+
+.search-input:focus {
+  border: 1px #4e75ff solid;
+}
+
+.submit-button {
+  width: 75px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #4e75ff;
+}
+
+.submit-button:hover {
+  background-color: #6c8cff;
+}
+
+.loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: none;
+  margin: 15px auto;
+  position: relative;
+  color: #000000;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: -38px -12px, -14px 0, 14px 0, 38px 0;
+  }
+  33% {
+    box-shadow: -38px 0px, -14px -12px, 14px 0, 38px 0;
+  }
+  66% {
+    box-shadow: -38px 0px, -14px 0, 14px -12px, 38px 0;
+  }
+  100% {
+    box-shadow: -38px 0, -14px 0, 14px 0, 38px -12px;
+  }
+}
+
+.load-button-container {
+  max-width: 125px;
+  margin: 0 auto;
+}
+
+.load-button {
+  position: absoulte;
+  bottom: 0;
+  width: 125px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #4e75ff;
+  margin: 15px 0 15px 0;
+}
+
+.load-button:hover {
+  background-color: #6c8cff;
 }

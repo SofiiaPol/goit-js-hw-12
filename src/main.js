@@ -12,7 +12,7 @@ const loader = document.querySelector('.loader');
 
 let lightbox = new SimpleLightbox('.gallery a');
 
-const onFormSubmit = event => {
+const onFormSubmit = async event => {
   event.preventDefault();
   updateLoader('block');
   const form = event.target;
@@ -21,21 +21,20 @@ const onFormSubmit = event => {
     alert('please fill in the line');
     return;
   }
-  fetchImages(userInput)
-    .then(data => {
-      updateLoader('none');
-      if (data.totalHits === 0) {
-        showMessage(
-          `Sorry, there are no images matching your search query. Please try again!`
-        );
-      }
-      renderImages(data.hits);
-      lightbox.refresh();
-    })
-    .catch(error => {
-      updateLoader('none');
-      showError(error.message);
-    });
+  try {
+    const data = await fetchImages(userInput);
+    updateLoader('none');
+    if (data.totalHits === 0) {
+      showMessage(
+        `Sorry, there are no images matching your search query. Please try again!`
+      );
+    }
+    renderImages(data.hits);
+    lightbox.refresh();
+  } catch (error) {
+    updateLoader('none');
+    showError(error.message);
+  }
 };
 
 searchForm.addEventListener('submit', onFormSubmit);
@@ -61,3 +60,18 @@ function showMessage(message) {
 function updateLoader(value) {
   loader.style.display = value;
 }
+// fetchImages(userInput)
+//   .then(data => {
+//     updateLoader('none');
+//     if (data.totalHits === 0) {
+//       showMessage(
+//         `Sorry, there are no images matching your search query. Please try again!`
+//       );
+//     }
+//     renderImages(data.hits);
+//     lightbox.refresh();
+//   })
+//   .catch(error => {
+//     updateLoader('none');
+//     showError(error.message);
+//   });
