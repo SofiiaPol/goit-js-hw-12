@@ -7,6 +7,10 @@ import 'izitoast/dist/css/iziToast.min.css';
 import { fetchImages } from './js/pixabay-api';
 import { renderImages } from './js/render-functions';
 
+let page = 1;
+const PER_PAGE = 15;
+const images = [];
+
 const searchForm = document.querySelector('.search-form');
 const loader = document.querySelector('.loader');
 

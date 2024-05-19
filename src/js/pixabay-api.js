@@ -9,21 +9,29 @@ const PARAMS = {
   safesearch: 'true',
 };
 
-const getSearchParams = searchInputValue => {
+const getSearchParams = (searchInputValue, page, perPage) => {
   const parameters = new URLSearchParams(PARAMS);
   parameters.append('q', searchInputValue);
+  parameters.append('page', page);
+  parameters.append('per_page', perPage);
   return parameters;
 };
 
-export const fetchImages = async searchInputValue => {
-  const url = `${BASE_URL}${PATH}?${getSearchParams(searchInputValue)}`;
+export const fetchImages = async (searchInputValue, page = 1, perPage = 15) => {
+  const url = `${BASE_URL}${PATH}?${getSearchParams(
+    searchInputValue,
+    page,
+    perPage
+  )}`;
   try {
     const response = await axios.get(url);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error(error.response ? error.response.status : error.message);
   }
 };
+
 // return fetch(url).then(response => {
 //   if (!response.ok) {
 //     throw new Error(response.status);
