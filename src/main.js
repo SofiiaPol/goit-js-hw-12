@@ -12,6 +12,7 @@ const PER_PAGE = 15;
 let images = [];
 let query = '';
 let total = 0;
+let rect;
 
 const searchForm = document.querySelector('.search-form');
 const loadMoreButton = document.querySelector('.load-button');
@@ -36,6 +37,7 @@ const onFormSubmit = async event => {
     updateLoadButton('block');
 
     if (data.totalHits === 0) {
+      updateLoadButton('none');
       showMessage(
         `Sorry, there are no images matching your search query. Please try again!`
       );
@@ -45,6 +47,8 @@ const onFormSubmit = async event => {
     query = userInput;
     total = data.totalHits;
     images = data.hits;
+    let elem = document.querySelector('.gallery-item');
+    rect = elem.getBoundingClientRect();
   } catch (error) {
     updateLoader('none');
     showError(error.message);
@@ -64,6 +68,7 @@ const onLoadMoreButtonClick = async event => {
     updateLoader('none');
     const result = [...images, ...data.hits];
     renderImages(result);
+    scrollBy(0, rect.height * 2);
     lightbox.refresh();
     images = result;
   } catch (error) {

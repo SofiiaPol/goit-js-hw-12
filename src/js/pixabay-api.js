@@ -25,17 +25,8 @@ export const fetchImages = async (searchInputValue, page = 1, perPage = 15) => {
   )}`;
   try {
     const response = await axios.get(url);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error(error.response ? error.response.status : error.message);
   }
 };
-
-// return fetch(url).then(response => {
-//   if (!response.ok) {
-//     throw new Error(response.status);
-//   }
-
-//   return response.json();
-// });
