@@ -28,6 +28,7 @@ const onFormSubmit = async event => {
   const userInput = form.elements.searchInput.value;
   if (userInput.trim() === '') {
     alert('please fill in the line');
+    updateLoader('none');
     return;
   }
   try {
@@ -46,9 +47,12 @@ const onFormSubmit = async event => {
     lightbox.refresh();
     query = userInput;
     total = data.totalHits;
+    if (total <= PER_PAGE) {
+      updateLoadButton('none');
+    }
     images = data.hits;
     let elem = document.querySelector('.gallery-item');
-    rect = elem.getBoundingClientRect();
+    rect = elem?.getBoundingClientRect();
   } catch (error) {
     updateLoader('none');
     showError(error.message);
@@ -59,18 +63,20 @@ const onLoadMoreButtonClick = async event => {
   event.preventDefault();
   try {
     page = page + 1;
+    const data = await fetchImages(query, page, PER_PAGE);
+    updateLoader('none');
+    const result = [...images, ...data.hits];
+    renderImages(result);
+    if (!rect) {
+      scrollBy(0, rect.height * 2);
+    }
+    lightbox.refresh();
+    images = result;
     if (images.length >= total) {
       updateLoadButton('none');
       showMessage(`We're sorry, but you've reached the end of search results.`);
       return;
     }
-    const data = await fetchImages(query, page, PER_PAGE);
-    updateLoader('none');
-    const result = [...images, ...data.hits];
-    renderImages(result);
-    scrollBy(0, rect.height * 2);
-    lightbox.refresh();
-    images = result;
   } catch (error) {
     updateLoader('none');
     showError(error.message);
