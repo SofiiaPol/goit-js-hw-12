@@ -49,6 +49,7 @@ const onFormSubmit = async event => {
     total = data.totalHits;
     if (total <= PER_PAGE) {
       updateLoadButton('none');
+      showMessage(`We're sorry, but you've reached the end of search results.`);
     }
     images = data.hits;
     let elem = document.querySelector('.gallery-item');
