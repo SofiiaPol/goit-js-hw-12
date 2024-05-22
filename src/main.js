@@ -47,7 +47,7 @@ const onFormSubmit = async event => {
     lightbox.refresh();
     query = userInput;
     total = data.totalHits;
-    if (total <= PER_PAGE) {
+    if (total !== 0 && total <= PER_PAGE) {
       updateLoadButton('none');
       showMessage(`We're sorry, but you've reached the end of search results.`);
     }
